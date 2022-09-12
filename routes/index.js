@@ -1,44 +1,53 @@
-// dependencies
-const express = require("express");
-const router = express.Router();
-// creates a random id
+
+const router = require('express').Router();
+const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
+
+// assigns a random ID to notes inputted to the system
 const { v4: uuidv4 } = require('uuid');
 // brings in the DB class object
-const DB = require("../db/db");
+const db = require("../db/db");
 
-// route to get notes
-router.get("/api/notes", async function (req, res) {
-  const notes = await DB.readNotes();
-  return res.json(notes);
+// route to notes
+
+router.get('/api/notes', (req, res) =>
+    readFromFile('db/db.json').then((data) => res.json(JSON.parse(data)))
+);
+
+// route for a new notes to append db.json
+router.post('/api/notes', (req, res) => {
+    const { title, text } = req.body;
+
+    if (title && text) {
+        const newNote = {
+            id: uuidv4(),
+            title,
+            text,
+        };
+        // appends the json file is successful
+        readAndAppend(newNote, './db/db.json');
+
+        const response = {
+            status: 'success',
+            body: newNote,
+        };
+        // returns an error response
+        res.json(response);
+    } else {
+        res.json('Error in posting note');
+    }
 });
 
-// route to add a new note and add it to the json file
-router.post("/api/notes", async function (req, res) {
-  const currentNotes = await DB.readNotes();
-  let newNote = {
-    id: uuidv4(),
-    title: req.body.title,
-    text: req.body.text,
-  };
+// router.delete('/api/notes', (req,res) => {
+//     note.destroy({
+//         where: {
+//             newNote: id,
+//         }
+//     })
+//     .then ((deletedNote) => (
+//     readAndAppend(deletedNote)));
 
-  await DB.addNote([...currentNotes, newNote]);
+//     });
+   
 
-  return res.send(newNote);
-});
-
-// // route to delete notes
-router.delete("/api/notes/:id", async function (req, res) {
-  // separates out the note to delete based on id
-  const noteToDelete = req.params.id;
-  // notes already in json file
-  const currentNotes = await DB.readNotes();
-  // sort through notes file and create a new array minus the note in question
-  const newNoteData = currentNotes.filter((note) => note.id !== noteToDelete);
-
-  // sends the new array back the DB class 
-  await DB.deleteNote(newNoteData);
-  
-  return res.send(newNoteData);
-});
 
 module.exports = router;
