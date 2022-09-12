@@ -1,13 +1,12 @@
-//require dependencies
 const express = require('express');
 
-//create express app
+//call on express
 const app = express();
 
-//create a PORT variable
+//sets port to 3000
 const PORT = process.env.PORT || 3000;
 
-//set up express to handle data parsing
+//enables express data handling and parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
@@ -17,5 +16,5 @@ app.use(indexRoutes);
 const notesRoutes = require("./routes/notes");
 app.use(notesRoutes);
 
-//create server listener
+//creates the local server
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
