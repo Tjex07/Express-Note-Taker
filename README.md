@@ -26,3 +26,6 @@
  https://img.shields.io/badge/license--green.svg
 https://opensource.org/licenses/
   
+
+  <img src= "./zAssets/app.png">
+  https://github.com/Tjex07/Express-Note-Taker
