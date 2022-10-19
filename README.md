@@ -10,18 +10,14 @@
   * [Tests](#tests)
   * [License](#license)
   * [Contributing](#contributing)
- 
   * [Questions](#questions)
   
   ## How does one install this Note Taker Application? 
   To deploy this application first open a gitbash terminal and run npm i to grab needed packages.  Afterwards npm start will deploy the application server.  Now navigate to http://localhost:3000/notes and you are ready to use the application.
 
-  ## How does one use this readme generator? 
+  ## How does one use this Note Taker Application? 
   The functionality of this application enables the user to input a note with a note title and save the note for veiwing.  Multiple notes can be saved.
   
-
-  ## How does one test this Note Taker Application? 
-  undefined
 
   ## Questions 
   If you have any questions about this Note Taker Application, please don't email me. Don't go to my github either... https://github.com/Tjex07.

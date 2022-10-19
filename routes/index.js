@@ -37,16 +37,16 @@ router.post('/api/notes', (req, res) => {
     }
 });
 
-// router.delete('/api/notes', (req,res) => {
-//     note.destroy({
-//         where: {
-//             newNote: id,
-//         }
-//     })
-//     .then ((deletedNote) => (
-//     readAndAppend(deletedNote)));
+router.delete('/api/notes', (req,res) => {
+    note.destroy({
+        where: {
+            newNote: id,
+        }
+    })
+    .then ((deletedNote) => (
+    readAndAppend(deletedNote)));
 
-//     });
+    });
    
 
 
